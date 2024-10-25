@@ -29,8 +29,8 @@ ssh-keygen -t ed25519 -C "ansible controller"
 
 #list hidden
 ls -la .ssh
+#copy to client
 
-#copy to clients
 ssh-copy-id -i ~/.ssh/id_ed25519.pub user@192.168.0.38
 ssh-copy-id -i ~/.ssh/id_ed25519.pub user@192.168.0.39
 
