@@ -3,7 +3,7 @@
 
 #rocky01 = 192.168.0.28 - Ansible Controller 
 #rocky02 = 192.168.0.38
-#rocky03 = 192.168.0.39
+#rocky03 = 192.168.0.39 
 
 
 #create a admin user
