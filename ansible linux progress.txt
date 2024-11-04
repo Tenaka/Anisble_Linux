@@ -28,7 +28,7 @@ Some notes for a blog
 
 cat inventory.txt
 [controller]
-#192.168.0.28
+192.168.0.28
 
 [rocky]
 rocky04.toyo.loc ansible_hostname=192.168.0.30
@@ -36,16 +36,16 @@ rocky02.toyo.loc ansible_hostname=192.168.0.38
 rocky03.toyo.loc ansible_hostname=192.168.0.39
 
 [db]
-#192.168.0.38
+192.168.0.38
 
 [web]
-#192.168.0.39
+192.168.0.39
 
 [samba]
 192.168.0.30
 
 [test]
-#192.168.0.30
+192.168.0.30
 
 cat baseline.yml 
 ---
