@@ -21,3 +21,26 @@
   command: code --no-sandbox --user-data-dir=/home/user/vscode
   register: vscode_version
   changed_when: false
+
+
+    - name: Ensure Visual Studio Code is installed
+      yum:
+        name: code
+        state: present
+
+    - name: Install desired VS Code extensions
+      shell: "code --install-extension {{ item }} --force"
+      loop:
+        - redhat.ansible 
+        - redhat.vscode-yaml
+        - redhat.vscode-openshift-connector
+        - redhat.vscode-openshift-extension-pack
+
+      register: vscode_extensions
+      changed_when: "'already installed' not in vscode_extensions.stdout"
+
+    - name: Display installed extensions
+      debug:
+        msg: "Installed extensions: {{ vscode_extensions.results | map(attribute='item') | list }}"
+
+
