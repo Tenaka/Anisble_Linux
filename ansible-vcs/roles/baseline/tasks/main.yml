@@ -1,0 +1,30 @@
+- name: Update and Upgrade All Redhat
+  dnf:
+    name: "*"
+    state: latest
+    update_cache: yes
+  when: ansible_distribution in ["Rocky","Fedora"]
+
+- name: Install YUM Utils
+  dnf:
+    name: yum-utils
+    state: latest
+  when: ansible_distribution in ["Rocky","Fedora"]
+
+- name: Check to see if a reboot is required
+  ansible.builtin.command: needs-restarting -r
+  register: reg_reboot_required
+  ignore_errors: true
+  failed_when: false
+  changed_when: reg_reboot_required.rc != 0
+  notify:
+    - Reboot Rocky
+  when: ansible_distribution in ["Rocky","Fedora"]
+
+#example for installing additional named programs
+- name: Install Default Packages
+  dnf:
+    name: "{{ packages }}"
+    state: present
+  when: ansible_distribution in ["Rocky","Fedora"]    
+

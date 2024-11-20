@@ -1,0 +1,11 @@
+---
+
+- hosts: all
+  become: true
+  roles:
+    - baseline
+
+- hosts: visualstudio
+  become: true
+  roles:
+    - visualstudio
