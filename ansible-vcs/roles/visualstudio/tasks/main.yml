@@ -25,3 +25,27 @@
 - name: Display Visual Studio Code version
   debug:
     msg: "Visual Studio Code version: {{ vscode_version.stdout }}"
+
+- name: Install Visual Studio Code extensions on Rocky Linux
+  hosts: rocky_hosts
+  become: true
+
+  tasks:
+    - name: Ensure Visual Studio Code is installed
+      yum:
+        name: code
+        state: present
+
+    - name: Install desired VS Code extensions
+      shell: "code --install-extension {{ item }} --force"
+      loop:
+        - ms-python.python          # Example: Python extension
+        - ms-vscode.cpptools        # Example: C/C++ extension
+        - esbenp.prettier-vscode    # Example: Prettier code formatter
+        - dbaeumer.vscode-eslint    # Example: ESLint
+      register: vscode_extensions
+      changed_when: "'already installed' not in vscode_extensions.stdout"
+
+    - name: Display installed extensions
+      debug:
+        msg: "Installed extensions: {{ vscode_extensions.results | map(attribute='item') | list }}"
